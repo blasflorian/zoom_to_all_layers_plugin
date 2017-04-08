@@ -16,8 +16,8 @@ email=florian.blas@gmail.com
 
 about=This plugin zooms to the extent of all layers in the layer tree.
 
-tracker= 
-repository= 
+tracker= https://github.com/blasflorian/zoom_to_all_layers_plugin/issues
+repository= https://github.com/blasflorian/zoom_to_all_layers_plugin
 # End of mandatory metadata
 
 # Recommended items:
