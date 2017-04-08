@@ -59,8 +59,3 @@ target/
 
 #jetbrains 
 .idea/
-
-#other
-*.png
-*.ui
-*.qrc
