@@ -56,3 +56,11 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#jetbrains 
+.idea/
+
+#other
+*.png
+*.ui
+*.qrc
