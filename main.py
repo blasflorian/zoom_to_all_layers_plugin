@@ -27,7 +27,7 @@ import resources
 # Import the code for the dialog
 from main_dialog import MainAppDialog
 import os.path
-from qgis.core import QgsMapLayerRegistry
+from qgis.core import QgsMapLayerRegistry, QgsCoordinateTransform
 
 
 class MainApp:
@@ -202,10 +202,19 @@ class MainApp:
             rects[0].combineExtentWith(rect)    # Combine first extent with the others
         self.iface.mapCanvas().setExtent(rects[0])
 
+    def adjust_rect_to_crs(self, layer, rectangle):
+        coord_trans = QgsCoordinateTransform()
+        coord_trans.setSourceCrs(layer.crs())
+        coord_trans.setDestCRS(self.iface.mapCanvas().mapSettings().destinationCrs())
+        return coord_trans.transform(rectangle)
+
     def get_bounding_boxes(self):
         rects = []
         for l in QgsMapLayerRegistry.instance().mapLayers().values():
             if l.type() == 0:
-                rects.append(l.boundingBoxOfSelected())
+                rect = l.boundingBoxOfSelected()
+                if not l.crs() == self.iface.mapCanvas().mapSettings().destinationCrs():
+                    rect = self.adjust_rect_to_crs(l, rect)
+                rects.append(rect)
         return rects
 
